@@ -12,9 +12,10 @@ class UserGenerator(object):
 
     def __init__(self):
         """
-        Here we fix each offer's logistic function beta parameters,
+        Here we fix each offer's logistic function beta (weight) parameters,
         which the casino operator will need to learn. The number
         of beta parameters corresponds to the number of elements in the context vector.
+        Later on we will calculate these weights via Bayesian methods.
         """
         self.beta = {}
         self.beta['A'] = np.array([-4, -0.1, -3, 0.1])
@@ -59,9 +60,9 @@ class UserGenerator(object):
 
     def generate_user_with_context(self) -> list:
         """
-        Generates a player and the associated context vector
+        Generates a player and associated context vector.
 
-        :return: context vector to be used in Logistic Regression eqn
+        :return: context vector to be used in Logistic Regression equation.
 
         """
         # 0: Unhosted, 1: Hosted
@@ -72,7 +73,7 @@ class UserGenerator(object):
         # Note that mean of Beta function is = a/(a+b)
         # Not to confuse this beta function with beta values for Logistic Regression
         age = 18 + int(np.random.beta(2, 3) * 60)
-        # add 1 to the context for the intercept in Logistic Reg eqn
+        # add 1 to the context for the intercept in Logistic Regression equation.
         self.context = [1, gender, hosted, age]
         return self.context
 
